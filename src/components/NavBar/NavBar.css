@@ -9,24 +9,25 @@
   background: #9c27b0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   display: flex; }
-  .nav-bar > .logo {
-    margin: 10px;
-    height: 40px; }
   .nav-bar > .brand {
-    display: none; }
-    @media (min-width: 600px) {
-      .nav-bar > .brand {
-        display: block;
-        line-height: 60px;
-        font-size: 24px;
-        color: white; } }
+    display: flex;
+    margin-right: auto; }
+    .nav-bar > .brand > .logo {
+      margin: 10px;
+      height: 40px; }
+    .nav-bar > .brand > .text {
+      display: none; }
+      @media (min-width: 600px) {
+        .nav-bar > .brand > .text {
+          display: block;
+          line-height: 60px;
+          font-size: 24px;
+          color: white; } }
   .nav-bar > .item {
     transition: all 0.3s linear;
     line-height: 60px;
     margin-left: 10px;
     color: rgba(255, 255, 255, 0.8); }
-    .nav-bar > .item:first-of-type {
-      margin-left: auto; }
     .nav-bar > .item.active {
       font-weight: bold;
       color: white;

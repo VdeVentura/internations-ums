@@ -9,28 +9,32 @@
   background: #9c27b0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   display: flex;
-  > .logo {
-    margin: 10px;
-    height: 40px;
-  }
-  > .brand {
-    display: none;
 
-    @media (min-width: 600px) {
-      display: block;
-      line-height: 60px;
-      font-size: 24px;
-      color: white;
+  > .brand {
+    display: flex;
+    margin-right: auto;
+
+    > .logo {
+      margin: 10px;
+      height: 40px;
+    }
+    > .text {
+      display: none;
+
+      @media (min-width: 600px) {
+        display: block;
+        line-height: 60px;
+        font-size: 24px;
+        color: white;
+      }
     }
   }
+
   > .item {
     transition: all 0.3s linear;
     line-height: 60px;
     margin-left: 10px;
     color: rgba(255, 255, 255, 0.8);
-    &:first-of-type {
-      margin-left: auto;
-    }
     &.active {
       font-weight: bold;
       color: rgba(255, 255, 255, 1);
