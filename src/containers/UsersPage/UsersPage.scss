@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  > .title {
+  }
+
+  > .action {
+    margin: auto;
+    margin-right: 0;
+    flex-grow: 0;
+  }
+}

@@ -1,0 +1,19 @@
+.button {
+  transition: all 0.1s linear;
+  border: 2px solid rgb(123, 31, 162);
+  color: rgb(123, 31, 162);
+  border-radius: 4px;
+  background: transparent;
+  padding: 10px 30px;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(123, 31, 162, 0.1);
+  }
+
+  > .icon {
+    padding-left: 10px;
+  }
+}

@@ -6,6 +6,7 @@ import firebase from "./firebase.js";
 import { setGroups, setUsers } from "./actions";
 import NavBar from "./components/NavBar/NavBar";
 import DashboardPage from "./containers/DashboardPage/DashboardPage";
+import UsersPage from "./containers/UsersPage/UsersPage";
 import "./App.css";
 
 class App extends Component {
@@ -30,7 +31,7 @@ class App extends Component {
           <NavBar />
           <div className="content">
             <Route exact path="/" render={() => <DashboardPage />} />
-            {/* <Route path="/users" component={UsersPage} /> */}
+            <Route path="/users" component={UsersPage} />
             {/* <Route path="/groups" component={GroupsPage} /> */}
           </div>
         </div>
