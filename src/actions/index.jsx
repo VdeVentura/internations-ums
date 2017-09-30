@@ -1,22 +1,19 @@
-export const OPEN_SIDE_BAR = "OPEN_SIDE_BAR";
-export const CLOSE_SIDE_BAR = "CLOSE_SIDE_BAR";
-export const TOGGLE_SIDE_BAR = "TOGGLE_SIDE_BAR";
+export const SET_GROUPS = "SET_GROUPS";
+export const SET_USERS = "SET_USERS";
 
-export function openSideBar() {
+export function setGroups(groups) {
   return {
-    type: OPEN_SIDE_BAR
+    type: SET_GROUPS,
+    payload: groups
   };
 }
-export function closeSideBar() {
+export function setUsers(users) {
   return {
-    type: CLOSE_SIDE_BAR
+    type: SET_USERS,
+    payload: users
   };
 }
-export function toggleSideBar() {
-  return {
-    type: TOGGLE_SIDE_BAR
-  };
-}
+
 //
 // export function setMissingPlayerDataWarning(missingData) {
 //   return {

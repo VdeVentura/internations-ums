@@ -1,32 +1,48 @@
 import React, { Component } from "react";
-
 import { HashRouter as Router, Route } from "react-router-dom";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import reducers from "./reducers";
+import { connect } from "react-redux";
+import firebase from "./firebase.js";
 
+import { setGroups, setUsers } from "./actions";
 import NavBar from "./components/NavBar/NavBar";
-
+import DashboardPage from "./containers/DashboardPage/DashboardPage";
 import "./App.css";
 
-const store = createStore(
-  reducers /* preloadedState, */,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
-
 class App extends Component {
+  componentDidMount() {
+    // Requesting groups
+    const groupsRef = firebase.database().ref("groups");
+    groupsRef.on("value", snapshot => {
+      const groups = snapshot.val();
+      this.props.setGroups(groups);
+    });
+    // Requesting Users
+    const usersRef = firebase.database().ref("users");
+    usersRef.on("value", snapshot => {
+      const users = snapshot.val();
+      this.props.setUsers(users);
+    });
+  }
   render() {
     return (
-      <Provider store={store}>
-        <Router>
+      <Router>
+        <div>
           <NavBar />
-          {/* <Route exact path="/" component={DashboardPage} /> */}
-          {/* <Route path="/users" component={UsersPage} /> */}
-          {/* <Route path="/groups" component={GroupsPage} /> */}
-        </Router>
-      </Provider>
+          <div className="content">
+            <Route exact path="/" render={() => <DashboardPage />} />
+            {/* <Route path="/users" component={UsersPage} /> */}
+            {/* <Route path="/groups" component={GroupsPage} /> */}
+          </div>
+        </div>
+      </Router>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    groups: state.groups.array,
+    users: state.users.array
+  };
+}
+export default connect(mapStateToProps, { setGroups, setUsers })(App);

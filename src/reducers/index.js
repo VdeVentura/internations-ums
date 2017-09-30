@@ -1,10 +1,13 @@
 import { combineReducers } from "redux";
 
-import SideBar from "./SideBar.js";
+import groups from "./groups";
+import users from "./groups";
+
 import { reducer as formReducer } from "redux-form";
 
 const rootReducer = combineReducers({
-  SideBar,
+  groups,
+  users,
   form: formReducer
 });
 
