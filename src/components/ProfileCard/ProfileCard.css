@@ -1,0 +1,37 @@
+.profile-card {
+  padding: 25px;
+  margin-bottom: 25px;
+  margin-top: 100px;
+  width: 100%;
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+  @media (min-width: 800px) {
+    .profile-card {
+      width: 300px; } }
+  .profile-card > .avatar {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 100px;
+    display: block;
+    max-width: 100px;
+    max-height: 100px;
+    margin: -75px auto 0; }
+  .profile-card > .name {
+    color: #7b1fa2;
+    font-weight: 300;
+    font-size: 22px;
+    text-align: center; }
+  .profile-card > .description {
+    display: flex;
+    flex-wrap: wrap; }
+    .profile-card > .description > .badge {
+      margin: auto;
+      width: 100px;
+      text-align: center;
+      background: #7b1fa2;
+      color: white;
+      border-radius: 15px;
+      padding: 5px 15px;
+      margin-bottom: 10px; }
+  .profile-card > .footer {
+    text-align: center; }
