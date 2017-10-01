@@ -9,14 +9,14 @@ class Button extends Component {
 
   renderIcon() {
     if (this.props.icon) {
-      return <i class={`icon fa ${this.props.icon}`} aria-hidden="true" />;
+      return <i className={`icon fa ${this.props.icon}`} aria-hidden="true" />;
     }
     return null;
   }
 
   render() {
     return (
-      <button className={`button ${this.props.className}`}>
+      <button {...this.props} className={`button ${this.props.className}`}>
         {this.props.children}
         {this.renderIcon()}
       </button>
