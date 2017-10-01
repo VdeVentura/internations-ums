@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import firebase from "./firebase.js";
-
+import _ from "lodash";
 import { setGroups, setUsers } from "./actions";
 import NavBar from "./components/NavBar/NavBar";
 import DashboardPage from "./containers/DashboardPage/DashboardPage";
@@ -14,13 +14,13 @@ class App extends Component {
     // Requesting groups
     const groupsRef = firebase.database().ref("groups");
     groupsRef.on("value", snapshot => {
-      const groups = snapshot.val();
+      const groups = _.toArray(snapshot.val());
       this.props.setGroups(groups);
     });
     // Requesting Users
     const usersRef = firebase.database().ref("users");
     usersRef.on("value", snapshot => {
-      const users = snapshot.val();
+      const users = _.toArray(snapshot.val());
       this.props.setUsers(users);
     });
   }

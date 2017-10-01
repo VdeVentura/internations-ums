@@ -1,5 +1,8 @@
+import firebase from "../firebase";
+
 export const SET_GROUPS = "SET_GROUPS";
 export const SET_USERS = "SET_USERS";
+export const CREATE_USER = "CREATE_USER";
 
 export function setGroups(groups) {
   return {
@@ -11,6 +14,17 @@ export function setUsers(users) {
   return {
     type: SET_USERS,
     payload: users
+  };
+}
+
+export function createUser(user) {
+  return dispatch => {
+    const usersRef = firebase.database().ref("users");
+    usersRef.push(user);
+    return {
+      type: CREATE_USER,
+      payload: user
+    };
   };
 }
 

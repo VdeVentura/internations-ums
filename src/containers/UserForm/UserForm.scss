@@ -1,0 +1,187 @@
+// Taken from Creative Tim
+.action {
+  display: block;
+  margin: 10px auto;
+}
+
+.fields-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+  > .form-group {
+    width: 100%;
+
+    @media (min-width: 600px) {
+      width: 45%;
+      &.full {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.form-control {
+  width: 100%;
+  height: 36px;
+  padding: 7px 0;
+  font-size: 14px;
+  line-height: 1.42857;
+}
+
+// must be broken out for reuse - webkit selector breaks firefox
+@mixin label-static($label-top, $static-font-size, $static-line-height) {
+  label.control-label {
+    top: -28px;
+    left: 0;
+    // must repeat because the selector above is more specific than the general label sizing
+    font-size: 11px;
+    line-height: 1.07143;
+  }
+}
+
+@mixin label-size-variant($placeholder-font-size, $vertical-padding, $line-height, $static-font-size, $static-line-height) {
+  .form-control {
+    font-size: $placeholder-font-size;
+    line-height: $line-height;
+    color: #aaa;
+    font-weight: 400;
+
+    margin-bottom: $vertical-padding;
+  }
+
+  // smaller focused or static size
+  label.control-label {
+    font-size: $static-font-size;
+    line-height: $static-line-height;
+    color: #aaa;
+    font-weight: 400;
+    margin: 16px 0 0 0; // std and lg
+  }
+}
+
+@mixin form-group-size-variant($parent, $placeholder-font-size, $label-top-margin, $vertical-padding, $line-height, $label-as-placeholder-shim) {
+  $static-font-size: ceil( (75 / 100 * $placeholder-font-size)) !default;
+  $static-line-height: (75 / 100 * $line-height) !default;
+
+  $label-as-placeholder-top: -1 *
+    (
+      $vertical-padding + $label-as-placeholder-shim
+    ) !default;
+  $label-top: $label-as-placeholder-top -
+    (
+      $placeholder-font-size + $vertical-padding
+    ) !default;
+
+  #{$parent} {
+    @include label-size-variant($placeholder-font-size, $vertical-padding, $line-height, $static-font-size, $static-line-height);
+
+    // form-group padding-bottom
+    //  upon collapsing margins, the largest margin is honored which collapses the form-control margin-bottom,
+    //  so the form-control margin-bottom must also be expressed as form-group padding
+    padding-bottom: $vertical-padding;
+
+    // form-group margin-top must be large enough for the label and the label's top padding since label is absolutely positioned
+    margin: ($label-top-margin + $static-font-size) 0 0 0;
+
+    // larger labels as placeholders
+    &.label-floating,
+    &.label-placeholder {
+      label.control-label {
+        top: $label-as-placeholder-top; // place the floating label to look like a placeholder with input padding
+        font-size: $placeholder-font-size;
+        line-height: $line-height;
+      }
+    }
+
+    // static, focused, or autofill floating labels
+    &.label-static,
+    &.label-floating.is-focused,
+    &.label-floating:not(.is-empty) {
+      @include label-static($label-top, $static-font-size, $static-line-height);
+    }
+    // #559 Fix for webkit/chrome autofill - rule must be separate because it breaks firefox otherwise #731
+    &.label-floating input.form-control:-webkit-autofill ~ label.control-label {
+      @include label-static($label-top, $static-font-size, $static-line-height);
+    }
+  }
+}
+
+// -----
+// Inputs
+
+.form-control,
+.form-group .form-control {
+  border: 0;
+  background-image: linear-gradient(#9c27b0, #9c27b0),
+    linear-gradient(#d2d2d2, #d2d2d2);
+  background-size: 0 2px, 100% 1px;
+  background-repeat: no-repeat;
+  background-position: center bottom, center calc(100% - 1px);
+  background-color: rgba(0, 0, 0, 0);
+  transition: background 0s ease-out;
+  float: none;
+  box-shadow: none;
+  border-radius: 0;
+
+  font-weight: 400;
+
+  &[readonly],
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-image: none;
+    border-bottom: 1px dotted #ddd;
+  }
+}
+
+.form-group {
+  position: relative;
+
+  // -----
+  // Labels with form-group signalled state
+  //
+  // Reference http://www.google.com/design/spec/components/text-fields.html
+  // MDL implementation: http://www.getmdl.io/components/index.html#textfields-section
+  &.label-static,
+  &.label-placeholder,
+  &.label-floating {
+    label.control-label {
+      position: absolute;
+      pointer-events: none;
+      transition: 0.3s ease all;
+    }
+  }
+
+  // hint to browser for optimization
+  //    TODO: evaluate effectiveness - looking for community feedback
+  &.label-floating label.control-label {
+    will-change: left, top, contents;
+  }
+
+  // hide label-placeholders when the field is not empty
+  &.label-placeholder:not(.is-empty) {
+    label.control-label {
+      display: none;
+    }
+  }
+
+  // form-group is-focused display
+  &.is-focused {
+    .form-control {
+      outline: none;
+      background-image: linear-gradient(#9c27b0, #9c27b0),
+        linear-gradient(#ddd, #ddd);
+      background-size: 100% 2px, 100% 1px;
+      box-shadow: none;
+      transition-duration: 0.3s;
+    }
+  }
+}
+
+// default floating size/location with a form-group (need margin etc from a default form-group)
+@include form-group-size-variant(unquote(".form-group"), 14px, 16px, 7px, 1.428571429, 0);
