@@ -37,6 +37,7 @@ class DashboardPage extends Component {
     return _.map(latestUsers, user => {
       return (
         <ProfileCard
+          key={user.username}
           avatar={user.avatar}
           name={`${_.capitalize(user.firstName)} ${_.capitalize(
             user.lastName
