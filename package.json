@@ -6,6 +6,7 @@
     "d3-scale": "^1.0.6",
     "firebase": "^4.4.0",
     "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.1.1",
     "react": "^16.0.0",
@@ -13,9 +14,11 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
+    "react-select": "^1.0.0-rc.10",
     "recharts": "^1.0.0-apha.5",
     "redux": "^3.7.2",
-    "redux-form": "^7.0.4"
+    "redux-form": "^7.0.4",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
