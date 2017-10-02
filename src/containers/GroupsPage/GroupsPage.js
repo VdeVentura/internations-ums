@@ -1,56 +1,64 @@
+// Most of the code in this file as well as UsersPage could be refactored
+// to make it more reusable and avoid repetition
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 import moment from "moment";
-import "./UsersPage.css";
+import "./GroupsPage.css";
 
 import {
-  createUser,
-  deleteUser,
-  editingUser,
-  editUser
+  createGroup,
+  deleteGroup,
+  editingGroup,
+  editGroup
 } from "../../actions/index";
-import UserForm from "../UserForm/UserForm";
-import ProfileCard from "../../components/ProfileCard/ProfileCard";
+import GroupForm from "../GroupForm/GroupForm";
+import StatsCard from "../../components/StatsCard/StatsCard";
 import Button from "../../components/Button/Button";
 import Modal from "../../components/Modal/Modal";
 
-class UsersPage extends Component {
+class GroupsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false
     };
 
-    this.renderUsers = this.renderUsers.bind(this);
+    this.renderGroups = this.renderGroups.bind(this);
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.submit = this.submit.bind(this);
   }
 
-  renderUsers() {
+  renderGroups() {
     if (!this.props.groups || !this.props.users) {
       return null;
     }
-    const latestUsers = this.props.users;
-    return _.map(latestUsers, user => {
+
+    return _.map(this.props.groups, (group, index) => {
       return (
-        <ProfileCard
-          key={user.key}
-          avatar={user.avatar}
-          name={`${_.capitalize(user.firstName)} ${_.capitalize(
-            user.lastName
-          )}`}
-          description={_.map(user.groups, group => {
-            return this.props.groups[group].name;
-          })}
-          footer={user.description}
+        <StatsCard
+          key={index}
+          logo={group.image}
+          title={`${_.capitalize(group.name)}`}
+          data={_.reduce(
+            this.props.users,
+            (count, user) => {
+              if (_.includes(user.groups, index)) {
+                count++;
+              }
+              return count;
+            },
+            0
+          )}
+          description={group.description}
           actions
           delete={() => {
-            this.props.deleteUser(user.key);
+            this.props.deleteUser(group.key);
           }}
           edit={() => {
-            this.props.editingUser(user);
+            this.props.editingUser(group);
             this.showModal();
           }}
         />
@@ -65,46 +73,39 @@ class UsersPage extends Component {
   closeModal() {
     this.setState({ showModal: false });
   }
+  submit(group) {
+    group.createdAt = group.createdAt ? group.createdAt : moment().unix();
 
-  submit(user) {
-    user.birthdate = moment(user.birthdate, "YY-MM-DD").unix();
-    user.groups = _.map(user.groups, group => {
-      return group.value;
-    });
-    user.gender = user.gender.value;
-    user.createdAt = user.createdAt ? user.createdAt : moment().unix();
-
-    if (user.key) {
-      this.props.editUser(user);
+    if (group.key) {
+      this.props.editGroup(group);
     } else {
-      this.props.createUser(user);
+      this.props.createGroup(group);
     }
     this.closeModal();
   }
-
   render() {
     return (
       <div>
         <div className="header">
-          <h1 className="title">List of Users</h1>
+          <h1 className="title">List of Groups</h1>
           <Button
             className="action"
             icon="fa-plus-circle"
             onClick={() => {
-              this.props.editingUser(null);
+              this.props.editingGroup(null);
               this.showModal();
             }}
           >
             Add
           </Button>
         </div>
-        <div className="card-container">{this.renderUsers()}</div>
+        <div className="card-container">{this.renderGroups()}</div>
         <Modal
           visible={this.state.showModal}
           hide={this.closeModal}
-          header="New User"
+          header="New Group"
         >
-          {this.state.showModal && <UserForm onSubmit={this.submit} />}
+          {this.state.showModal && <GroupForm onSubmit={this.submit} />}
         </Modal>
       </div>
     );
@@ -118,8 +119,8 @@ function mapStateToProps(state) {
   };
 }
 export default connect(mapStateToProps, {
-  createUser,
-  deleteUser,
-  editingUser,
-  editUser
-})(UsersPage);
+  createGroup,
+  deleteGroup,
+  editingGroup,
+  editGroup
+})(GroupsPage);

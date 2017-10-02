@@ -7,6 +7,7 @@ import { setGroups, setUsers } from "./actions";
 import NavBar from "./components/NavBar/NavBar";
 import DashboardPage from "./containers/DashboardPage/DashboardPage";
 import UsersPage from "./containers/UsersPage/UsersPage";
+import GroupsPage from "./containers/GroupsPage/GroupsPage";
 import "./App.css";
 
 class App extends Component {
@@ -14,15 +15,13 @@ class App extends Component {
     // Requesting groups
     const groupsRef = firebase.database().ref("groups");
     groupsRef.on("value", snapshot => {
-      const groups = _.toArray(snapshot.val());
+      const groups = _.map(snapshot.val(), (group, key) => ({ ...group, key }));
       this.props.setGroups(groups);
     });
     // Requesting Users
     const usersRef = firebase.database().ref("users");
     usersRef.on("value", snapshot => {
-      const users = _.map(snapshot.val(), (user, key) => {
-        return { ...user, key };
-      });
+      const users = _.map(snapshot.val(), (user, key) => ({ ...user, key }));
       const sortedUsers = _.sortBy(users, ["createdAt"]);
       this.props.setUsers(sortedUsers);
     });
@@ -35,7 +34,7 @@ class App extends Component {
           <div className="content">
             <Route exact path="/" render={() => <DashboardPage />} />
             <Route path="/users" component={UsersPage} />
-            {/* <Route path="/groups" component={GroupsPage} /> */}
+            <Route path="/groups" component={GroupsPage} />
           </div>
         </div>
       </Router>

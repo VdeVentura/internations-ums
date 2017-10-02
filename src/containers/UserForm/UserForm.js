@@ -145,5 +145,3 @@ function mapStateToProps(state) {
 
 UserForm = reduxForm({ form: "user" })(UserForm);
 export default connect(mapStateToProps)(UserForm);
-
-// export default reduxForm({ form: "user" })(UserForm);

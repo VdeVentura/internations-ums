@@ -28,7 +28,7 @@ class ProfileCard extends Component {
 
   render() {
     return (
-      <div className="profile-card">
+      <article className="profile-card">
         <img
           src={this.props.avatar ? this.props.avatar : avatarDefault}
           alt=""
@@ -47,7 +47,7 @@ class ProfileCard extends Component {
         <hr />
         <div className="footer">{this.props.footer}</div>
         {this.renderActions()}
-      </div>
+      </article>
     );
   }
 }
