@@ -28,6 +28,8 @@ class GroupsPage extends Component {
     this.renderGroups = this.renderGroups.bind(this);
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.showToast = this.showToast.bind(this);
+    this.closeToast = this.closeToast.bind(this);
     this.submit = this.submit.bind(this);
   }
 
@@ -37,25 +39,34 @@ class GroupsPage extends Component {
     }
 
     return _.map(this.props.groups, (group, index) => {
+      const groupUsers = _.reduce(
+        this.props.users,
+        (count, user) => {
+          if (_.includes(user.groups, index)) {
+            count++;
+          }
+          return count;
+        },
+        0
+      );
+
       return (
         <StatsCard
           key={index}
           logo={group.image}
           title={`${_.capitalize(group.name)}`}
-          data={_.reduce(
-            this.props.users,
-            (count, user) => {
-              if (_.includes(user.groups, index)) {
-                count++;
-              }
-              return count;
-            },
-            0
-          )}
+          data={groupUsers}
           description={group.description}
           actions
           delete={() => {
-            this.props.deleteGroup(group.key);
+            if (groupUsers === 0) {
+              this.props.deleteGroup(group.key);
+            } else {
+              this.showToast();
+              window.setTimeout(() => {
+                this.closeToast();
+              }, 3000);
+            }
           }}
           edit={() => {
             this.props.editingGroup(group);
@@ -72,6 +83,13 @@ class GroupsPage extends Component {
 
   closeModal() {
     this.setState({ showModal: false });
+  }
+  showToast() {
+    this.setState({ showToast: true });
+  }
+
+  closeToast() {
+    this.setState({ showToast: false });
   }
   submit(group) {
     group.createdAt = group.createdAt ? group.createdAt : moment().unix();
@@ -107,6 +125,14 @@ class GroupsPage extends Component {
         >
           {this.state.showModal && <GroupForm onSubmit={this.submit} />}
         </Modal>
+        {this.state.showToast && (
+          <div className="toast">
+            <div className="message">
+              <i className="fa fa-exclamation-triangle" aria-hidden="true" />
+              Group can't be deleted
+            </div>
+          </div>
+        )}
       </div>
     );
   }
