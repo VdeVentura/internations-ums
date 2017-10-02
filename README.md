@@ -31,7 +31,7 @@ yarn start
 ```
 Q: Issues ?
 
-A: Sure! First time playing around with a non-relational DB, so mistakes were made. Also, I'm still figuring out how to deal with redux state and firebase when updating data (Once you push something, Firebase will hit back you API with the new data, which you just updated via an action creator, so you end up updating your state twice?, still figuring this out)
+A: Sure! First time playing around with a non-relational DB, so mistakes were made. Also, I'm still figuring out how to deal with redux state and firebase when updating data (Once you push something, Firebase will hit back your app with the new data, which you just updated via an action creator, so you end up updating your state twice?, still figuring this out)
 
 ***
 
