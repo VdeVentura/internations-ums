@@ -1,8 +1,0 @@
-.header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; }
-  .header > .action {
-    margin: auto;
-    margin-right: 0;
-    flex-grow: 0; }
