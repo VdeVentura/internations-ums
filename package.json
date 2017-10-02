@@ -1,10 +1,12 @@
 {
   "name": "ums",
+  "homepage": "https://irvingv8.github.io/internations-ums/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "d3-scale": "^1.0.6",
     "firebase": "^4.4.0",
+    "gh-pages": "^1.0.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "node-sass-chokidar": "^0.0.3",
@@ -21,8 +23,11 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "watch-css":
+      "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
