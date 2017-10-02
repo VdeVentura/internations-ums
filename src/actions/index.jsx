@@ -3,6 +3,9 @@ import firebase from "../firebase";
 export const SET_GROUPS = "SET_GROUPS";
 export const SET_USERS = "SET_USERS";
 export const CREATE_USER = "CREATE_USER";
+export const SET_EDITING_USER = "SET_EDITING_USER";
+export const EDIT_USER = "EDIT_USER";
+export const DELETE_USER = "DELETE_USER";
 
 export function setGroups(groups) {
   return {
@@ -21,10 +24,36 @@ export function createUser(user) {
   return dispatch => {
     const usersRef = firebase.database().ref("users");
     usersRef.push(user);
-    return {
+    dispatch({
       type: CREATE_USER,
       payload: user
-    };
+    });
+  };
+}
+export function editingUser(user) {
+  return {
+    type: SET_EDITING_USER,
+    payload: user
+  };
+}
+export function editUser(user) {
+  return dispatch => {
+    const usersRef = firebase.database().ref("users");
+    usersRef.child(user.key).set(user);
+    dispatch({
+      type: EDIT_USER,
+      payload: user
+    });
+  };
+}
+export function deleteUser(userKey) {
+  return dispatch => {
+    const usersRef = firebase.database().ref("users");
+    usersRef.child(userKey).remove();
+    dispatch({
+      type: DELETE_USER,
+      payload: userKey
+    });
   };
 }
 

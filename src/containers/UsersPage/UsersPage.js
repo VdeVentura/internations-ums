@@ -4,7 +4,12 @@ import _ from "lodash";
 import moment from "moment";
 import "./UsersPage.css";
 
-import { createUser } from "../../actions/index";
+import {
+  createUser,
+  deleteUser,
+  editingUser,
+  editUser
+} from "../../actions/index";
 import UserForm from "../UserForm/UserForm";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import Button from "../../components/Button/Button";
@@ -32,7 +37,7 @@ class UsersPage extends Component {
     return _.map(latestUsers, user => {
       return (
         <ProfileCard
-          key={user.username}
+          key={user.key}
           avatar={user.avatar}
           name={`${_.capitalize(user.firstName)} ${_.capitalize(
             user.lastName
@@ -41,6 +46,14 @@ class UsersPage extends Component {
             return this.props.groups[group].name;
           })}
           footer={user.description}
+          actions
+          delete={() => {
+            this.props.deleteUser(user.key);
+          }}
+          edit={() => {
+            this.props.editingUser(user);
+            this.showModal();
+          }}
         />
       );
     });
@@ -55,13 +68,18 @@ class UsersPage extends Component {
   }
 
   submit(user) {
-    const birthdate = moment(user.birthdate, "YY-MM-DD").unix();
-    const groups = _.map(user.groups, group => {
+    user.birthdate = moment(user.birthdate, "YY-MM-DD").unix();
+    user.groups = _.map(user.groups, group => {
       return group.value;
     });
-    user.birthdate = birthdate;
-    user.groups = groups;
-    this.props.createUser(user);
+    user.gender = user.gender.value;
+    user.createdAt = user.createdAt ? user.createdAt : moment().unix();
+
+    if (user.key) {
+      this.props.editUser(user);
+    } else {
+      this.props.createUser(user);
+    }
     this.closeModal();
   }
 
@@ -73,7 +91,10 @@ class UsersPage extends Component {
           <Button
             className="action"
             icon="fa-plus-circle"
-            onClick={this.showModal}
+            onClick={() => {
+              this.props.editingUser(null);
+              this.showModal();
+            }}
           >
             Add
           </Button>
@@ -86,7 +107,7 @@ class UsersPage extends Component {
           hide={this.closeModal}
           header="New User"
         >
-          <UserForm onSubmit={this.submit} />
+          {this.state.showModal && <UserForm onSubmit={this.submit} />}
         </Modal>
       </div>
     );
@@ -99,4 +120,9 @@ function mapStateToProps(state) {
     users: state.users.array
   };
 }
-export default connect(mapStateToProps, { createUser })(UsersPage);
+export default connect(mapStateToProps, {
+  createUser,
+  deleteUser,
+  editingUser,
+  editUser
+})(UsersPage);

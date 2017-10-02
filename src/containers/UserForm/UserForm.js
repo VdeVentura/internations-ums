@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import _ from "lodash";
+import moment from "moment";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 import "./UserForm.css";
@@ -10,7 +11,7 @@ import Button from "../../components/Button/Button";
 
 const MultiSelect = props => {
   return (
-    <div className={`form-group full`}>
+    <div className={`form-group ${props.full ? "full" : ""}`}>
       <Select
         {...props}
         value={props.input.value}
@@ -65,9 +66,16 @@ class UserForm extends Component {
   }
 
   render() {
-    const options = _.map(this.props.groups, (group, index) => {
+    const groupOptions = _.map(this.props.groups, (group, index) => {
       return { label: _.capitalize(group.name), value: index };
     });
+
+    // Trust me I believe in sexual diversity but for the sake of simplicity
+    // I limited this to just girls and boys (sorry)
+    const genderOptions = [
+      { label: "Boy", value: "boy" },
+      { label: "Girl", value: "girl" }
+    ];
 
     return (
       <form onSubmit={this.props.handleSubmit}>
@@ -81,18 +89,24 @@ class UserForm extends Component {
             label="Birthdate (YY/MM/DD)"
             normalize={normalizeDate}
           />
+          <Field name="description" component={MDInput} label="Description" />
           <Field
-            full
-            name="description"
-            component={MDInput}
-            label="Description"
+            placeholder="Gender"
+            name="gender"
+            options={genderOptions}
+            component={MultiSelect}
           />
           <Field
             placeholder="Groups"
             name="groups"
-            options={options}
+            options={groupOptions}
             component={MultiSelect}
             multi
+          />
+          <Field
+            name="avatar"
+            component={MDInput}
+            label="Profile Image (url)"
           />
         </div>
         <Button type="submit" className="action" icon="fa-paper-plane">
@@ -103,10 +117,33 @@ class UserForm extends Component {
   }
 }
 function mapStateToProps(state) {
+  const birthdate = state.users.editing
+    ? moment.unix(state.users.editing.birthdate).format("YY-MM-DD")
+    : "";
+
+  const groups = state.users.editing
+    ? _.map(state.users.editing.groups, group => {
+        return { label: state.groups.array[group].name, value: group };
+      })
+    : null;
+  const gender = state.users.editing
+    ? state.users.editing.gender === "boy"
+      ? { label: "Boy", value: "boy" }
+      : { label: "Girl", value: "girl" }
+    : null;
+
   return {
-    groups: state.groups.array
+    groups: state.groups.array,
+    initialValues: {
+      ...state.users.editing,
+      birthdate,
+      groups,
+      gender
+    }
   };
 }
 
-UserForm = connect(mapStateToProps)(UserForm);
-export default reduxForm({ form: "user" }, mapStateToProps)(UserForm);
+UserForm = reduxForm({ form: "user" })(UserForm);
+export default connect(mapStateToProps)(UserForm);
+
+// export default reduxForm({ form: "user" })(UserForm);

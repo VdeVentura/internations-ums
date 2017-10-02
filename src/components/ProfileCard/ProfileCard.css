@@ -1,4 +1,6 @@
 .profile-card {
+  transition: 0.3s all linear;
+  position: relative;
   padding: 25px;
   margin-bottom: 25px;
   margin-top: 100px;
@@ -35,3 +37,31 @@
       margin-bottom: 10px; }
   .profile-card > .footer {
     text-align: center; }
+  .profile-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
+    .profile-card:hover > .actions-holder {
+      opacity: 1; }
+  .profile-card > .actions-holder {
+    display: flex;
+    transition: 0.3s all linear;
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 100%;
+    justify-content: center; }
+    @media (min-width: 600px) {
+      .profile-card > .actions-holder {
+        opacity: 0; } }
+    .profile-card > .actions-holder > .action {
+      cursor: pointer;
+      margin: 0 25px;
+      display: flex;
+      height: 40px;
+      width: 40px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+      color: white;
+      background: #9c27b0; }
+      .profile-card > .actions-holder > .action.delete {
+        background: #f44336; }

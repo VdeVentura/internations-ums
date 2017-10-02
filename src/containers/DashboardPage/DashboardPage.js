@@ -172,7 +172,7 @@ class DashboardPage extends Component {
           <GraphCard header="Gender by Group">
             {this.renderGenderGraph()}
           </GraphCard>
-          <GraphCard>{this.renderAgeGraph()}</GraphCard>
+          <GraphCard header="Users by Group">{this.renderAgeGraph()}</GraphCard>
         </div>
         <div className="card-container">{this.renderGroups()}</div>
         <br />
