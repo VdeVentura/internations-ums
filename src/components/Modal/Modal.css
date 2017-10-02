@@ -32,6 +32,8 @@
     min-height: 200px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
     .modal-wrapper > .modal > .close {
+      border: none;
+      background: transparent;
       transition: all 0.2s linear;
       cursor: pointer;
       font-size: 25px;
