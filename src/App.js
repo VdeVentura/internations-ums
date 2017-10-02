@@ -20,8 +20,11 @@ class App extends Component {
     // Requesting Users
     const usersRef = firebase.database().ref("users");
     usersRef.on("value", snapshot => {
-      const users = _.toArray(snapshot.val());
-      this.props.setUsers(users);
+      const users = _.map(snapshot.val(), (user, key) => {
+        return { ...user, key };
+      });
+      const sortedUsers = _.sortBy(users, ["createdAt"]);
+      this.props.setUsers(sortedUsers);
     });
   }
   render() {
