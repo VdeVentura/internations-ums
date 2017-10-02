@@ -46,4 +46,16 @@ A: Sure! First time playing around with a non-relational DB, so mistakes were ma
 * You can open 2 tabs side by side, make changes in one of them and see how the other one gets updated automatically
 * You can open the site on your phone and add it to the homescreen
   * Haven't test this on iOS
-  * On an Android device using chrome you can hit three dots at the top right corner and select "Add to Home screen" to get an aap-like experience
+  * On an Android device using chrome you can hit three dots at the top right corner and select "Add to Home screen" to get an app-like experience (screenshot 5)
+
+## Screenshots
+
+![install banner](./images/install-banner.png "Install banner")
+
+![install banner](./images/app-shortcut.png "App in homescreen")
+
+![install banner](./images/splash-screen.png "App's splash screen")
+
+![install banner](./images/app-standalone.png "App running as standalone")
+
+![install banner](./images/add-to-homescreen.png "Adding to homescreen manually")
