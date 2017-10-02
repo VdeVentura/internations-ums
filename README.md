@@ -50,12 +50,12 @@ A: Sure! First time playing around with a non-relational DB, so mistakes were ma
 
 ## Screenshots
 
-![install banner](./images/install-banner.png "Install banner")
+<img src="./images/install-banner.png" width="200" />
 
-![install banner](./images/app-shortcut.png "App in homescreen")
+<img src="./images/app-shortcut.png" width="200" />
 
-![install banner](./images/splash-screen.png "App's splash screen")
+<img src="./images/splash-screen.png" width="200" />
 
-![install banner](./images/app-standalone.png "App running as standalone")
+<img src="./images/app-standalone.png" width="200" />
 
-![install banner](./images/add-to-homescreen.png "Adding to homescreen manually")
+<img src="./images/add-to-homescreen.png" width="200" />
