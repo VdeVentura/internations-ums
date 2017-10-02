@@ -13,6 +13,10 @@
         width: 45%; }
         .fields-container > .form-group.full {
           width: 100%; } }
+    .fields-container > .form-group .error {
+      font-size: 12px;
+      font-weight: bold;
+      color: #f44336; }
 
 .is-focused:not(.is-open) > .Select-control {
   border-bottom-width: 2px;
