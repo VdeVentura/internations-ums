@@ -51,16 +51,17 @@ A: Sure! First time playing around with a non-relational DB, so mistakes were ma
 
 ## Some tests:
 
-* You can add users and assign them to groups
-* You can update users data
-* You can delete users
-* You can create groups
-* You can update groups data
-* You can delete groups
-* You can open 2 tabs side by side, make changes in one of them and see how the other one gets updated automatically
-* You can open the site on your phone and add it to the homescreen
-  * Haven't test this on iOS
-  * On an Android device using chrome you can hit three dots at the top right corner and select "Add to Home screen" to get an app-like experience (screenshot 5)
+* You can add users and assign them to groups.
+* You can update users data.
+* You can delete users.
+* You can create groups.
+* You can update groups data.
+* You can delete groups.
+* You can open 2 tabs side by side, make changes in one of them and see how the other one gets updated automatically.
+* You can open the site on your phone and add it to the homescreen.*
+  * Haven't test this on iOS.
+  * On an Android device using chrome you can hit three dots at the top right corner and select "Add to Home screen" to get an app-like experience (screenshot 5).
+  * Or you can visit the site, wait at least 5 minutes, an visit it again to get an install banner like in screenshot 1.
 
 ## Screenshots
 
