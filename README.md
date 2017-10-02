@@ -61,7 +61,7 @@ A: Sure! First time playing around with a non-relational DB, so mistakes were ma
 * You can open the site on your phone and add it to the homescreen.*
   * Haven't test this on iOS.
   * On an Android device using chrome you can hit three dots at the top right corner and select "Add to Home screen" to get an app-like experience (screenshot 5).
-  * Or you can visit the site, wait at least 5 minutes, an visit it again to get an install banner like in screenshot 1.
+  * Or you can visit the site, wait at least 5 minutes, an visit it again to get and install banner like in screenshot 1.
 
 ## Screenshots
 
