@@ -55,10 +55,10 @@ class GroupsPage extends Component {
           description={group.description}
           actions
           delete={() => {
-            this.props.deleteUser(group.key);
+            this.props.deleteGroup(group.key);
           }}
           edit={() => {
-            this.props.editingUser(group);
+            this.props.editingGroup(group);
             this.showModal();
           }}
         />
