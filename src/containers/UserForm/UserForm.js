@@ -3,40 +3,11 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import _ from "lodash";
 import moment from "moment";
-import Select from "react-select";
-import "react-select/dist/react-select.css";
 import "./UserForm.css";
 
 import Button from "../../components/Button/Button";
-
-const MultiSelect = props => {
-  return (
-    <div className={`form-group ${props.full ? "full" : ""}`}>
-      <Select
-        {...props}
-        value={props.input.value}
-        onChange={value => props.input.onChange(value)}
-        onBlur={() => props.input.onBlur(props.input.value)}
-        options={props.options}
-      />
-    </div>
-  );
-};
-
-const MDInput = field => {
-  const baseClass = `form-group label-floating ${field.full ? "full" : ""}`;
-  const isEmptyClass = field.input.value === "" ? "is-empty" : "";
-  const isFocusedClass = field.meta.active ? "is-focused" : "";
-  return (
-    <div className={`${baseClass} ${isEmptyClass} ${isFocusedClass} `}>
-      <label className="control-label">{field.label}</label>
-      <input {...field.input} className="form-control" />
-      <span className="error">
-        {field.meta.error && field.meta.touched && field.meta.error}
-      </span>
-    </div>
-  );
-};
+import MDInput from "../../components/MDInput/MDInput";
+import MultiSelect from "../../components/MultiSelect/MultiSelect";
 
 const normalizeDate = value => {
   if (!value) {
