@@ -2,6 +2,8 @@
 
 Site is Avalaible at https://irvingv8.github.io/internations-ums/
 
+<img src="./images/intro.png" width="500" />
+
 The solution is a PWA backed with Firebase (so there it's a real time app).
 
 
@@ -15,6 +17,18 @@ Q: Why Firebase ?
 
 A: Watching the graphs update in my desktop while I changed something in my phone was just worth it.
 
+Q: How do I run this locally?
+
+A: Clone/Download this repo and:
+```
+npm install
+npm start
+```
+or
+```
+yarn install
+yarn start
+```
 Q: Issues ?
 
 A: Sure! First time playing around with a non-relational DB, so mistakes were made. Also, I'm still figuring out how to deal with redux state and firebase when updating data (Once you push something, Firebase will hit back you API with the new data, which you just updated via an action creator, so you end up updating your state twice?, still figuring this out)
