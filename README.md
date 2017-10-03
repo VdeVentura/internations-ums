@@ -4,7 +4,7 @@ Site is Avalaible at https://irvingv8.github.io/internations-ums/
 
 <img src="./images/intro.png" width="500" />
 
-The solution is a PWA backed with Firebase (so there it's a real time app).
+The solution is a PWA backed with Firebase (so it's a real time app).
 
 
 ## Q/A
